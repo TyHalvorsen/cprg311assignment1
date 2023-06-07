@@ -10,7 +10,7 @@ import shapes.Shape;
  * algorithms will rely on compateTo(), compareBaseArea, CompareByVolume for
  * logic
  *
- * @author Marcel Gallardo (000827700)
+ * @author Marcel Gallardo  (000827700), Lynn Park , Tyler Halvorsen
  *
  */
 public class SortingAlgorithms {
