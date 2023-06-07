@@ -1,4 +1,4 @@
-package Appdriver;
+package Driver;
 
 
 
@@ -8,13 +8,16 @@ import Shape.Cone;
 import Shape.Cylinder;
 import Shape.Pyramid;
 import Shape.Shape;
+import Sorting.AlgorithmManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import utilities.Debug;
-import utilities.Sorting;
+
+
+
 
 /**
  *
@@ -87,8 +90,9 @@ public class AppDriver {
             System.out.println("\t" + shapeArray[i].getVolume() + " " + shapeArray[i].getBaseArea());
         }
 
-        Sorting algorithm = new Sorting();
+
         Debug debug = new Debug(1);
+        AlgorithmManager algorithm = new AlgorithmManager();
         int unsortedArray[] = {35, 5, 1, 6, 12, 4, 9, 2, 66};
 
         // algorithm.bubbleSort(unsortedArray, debug);
