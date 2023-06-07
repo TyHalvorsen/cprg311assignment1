@@ -1,8 +1,9 @@
-package utilities;
+package sorting;
 
-import comparators.CompareByBaseArea;
-import comparators.CompareByVolume;
-import shapes.Shape;
+import Comparator.CompareByBaseArea;
+import Comparator.CompareByVolume;
+import Shape.Shape;
+import utilities.Debug;
 
 /**
  * Class description: class containing various sorting algorithms for shapes.

@@ -1,7 +1,7 @@
 package Sorting;
 
-import Comparator.BaseAreaComparator;
-import Comparator.VolumeComparator;
+import Comparator.CompareByBaseArea;
+import Comparator.CompareByVolume;
 
 import utilities.Debug;
 

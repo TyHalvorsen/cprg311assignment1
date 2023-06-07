@@ -1,7 +1,7 @@
 package Driver;
 
-import Comparator.BaseAreaComparator;
-import Comparator.VolumeComparator;
+import Comparator.CompareByBaseArea;
+import Comparator.CompareByVolume;
 import Shape.Cone;
 import Shape.Cylinder;
 import Shape.Pyramid;
@@ -24,9 +24,40 @@ public class AppDriver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+           //System.out.println(args[0]);
+        
+//        String filename;
+//        String sortType;
+//        String property;
+//        
+//        if(args.length <3)
+//            throw new RuntimeException("Few number of arguments");
+//        
+//        if (args[0].charAt(1) == 'f')
+//            filename = args[0].substring(2);
+//        else if (args[1].charAt(1) == 'f')
+//            filename = args[0].substring(2);
+//        else if (args[2].charAt(1) == 'f')
+//            filename = args[0].substring(2);
+//        
+//        
+//        if (args[0].charAt(1) == 'S')
+//            sortType = args[0].substring(2);
+//        else if (args[1].charAt(1) == 'S')
+//            sortType = args[0].substring(2);
+//        else if (args[2].charAt(1) == 'S')
+//            sortType = args[0].substring(2);
 
-        BaseAreaComparator baseComp = new BaseAreaComparator();
-        VolumeComparator volumeComp = new VolumeComparator();
+
+//        if(args[0].equalsIgnoreCase("merge")){
+//            algorithm.mergeSort(unsortedArray, debug);
+//        }
+            
+        //algorithm.mergeSort(unsortedArray, debug);
+
+        CompareByBaseArea baseComp = new CompareByBaseArea();
+        CompareByVolume volumeComp = new CompareByVolume();
 
         Cone cone = new Cone(28437.601, 17222.616);
         Cylinder cylinder = new Cylinder(12595.147, 650.338);
