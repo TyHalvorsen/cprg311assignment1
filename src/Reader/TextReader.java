@@ -1,5 +1,12 @@
 package Reader;
 
+import Shape.Cone;
+import Shape.Cylinder;
+import Shape.OctagonalPrism;
+import Shape.PentagonalPrism;
+import Shape.Pyramid;
+import Shape.SquarePrism;
+import Shape.TriangularPrism;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
@@ -73,13 +80,14 @@ public class TextReader {
                 Pyramid pyramid = new Pyramid(radius, height);
                 System.out.println(pyramid);
             }
-            else if (shape.equals("Prism"))
-            {
-                double radius = scanner.nextDouble();
-                double height = scanner.nextDouble();
-                Prism prism = new Prism(radius, height);
-                System.out.println(prism);
-            }
+            //prism is not a shape, it is a super class
+//            else if (shape.equals("Prism"))
+//            {
+//                double radius = scanner.nextDouble();
+//                double height = scanner.nextDouble();
+//                Prism prism = new Prism(radius, height);
+//                System.out.println(prism);
+//            }
         }
     }
     
