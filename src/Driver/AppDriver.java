@@ -1,7 +1,5 @@
 package Driver;
 
-
-
 import Comparator.BaseAreaComparator;
 import Comparator.VolumeComparator;
 import Shape.Cone;
@@ -16,12 +14,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import utilities.Debug;
 
-
-
-
 /**
  *
- * 
+ *
  */
 public class AppDriver {
 
@@ -90,13 +85,11 @@ public class AppDriver {
             System.out.println("\t" + shapeArray[i].getVolume() + " " + shapeArray[i].getBaseArea());
         }
 
-
         Debug debug = new Debug(1);
         AlgorithmManager algorithm = new AlgorithmManager();
         int unsortedArray[] = {35, 5, 1, 6, 12, 4, 9, 2, 66};
 
-        // algorithm.bubbleSort(unsortedArray, debug);
-        algorithm.quickSort(unsortedArray, debug);
+        algorithm.mergeSort(unsortedArray, debug);
 
         for (int a : unsortedArray) {
             System.out.print(a + " ");

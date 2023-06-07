@@ -144,7 +144,48 @@ public class AlgorithmManager {
         swap(array, i + 1, high);
         return i + 1;
     }
-    
+
+    public void mergeSort(int[] array, Debug debugLevel) {
+        if (array.length <= 1) {
+            return; // Array is already sorted
+        }
+
+        int mid = array.length / 2;
+        int[] left = new int[mid];
+        int[] right = new int[array.length - mid];
+
+        // split the array into two
+        System.arraycopy(array, 0, left, 0, left.length);
+        System.arraycopy(array, mid, right, 0, right.length);
+
+        //  sort the two arrays
+        mergeSort(left, debugLevel);
+        mergeSort(right, debugLevel);
+
+        // merge two the sorted arrays
+        merge(array, left, right);
+    }
+
+    private static void merge(int[] array, int[] leftArray, int[] rightArray) {
+        int indexOfLeft = 0, indexOfRight = 0, indexOfMerged = 0;
+
+        while (indexOfLeft < leftArray.length && indexOfRight < rightArray.length) {
+            if (leftArray[indexOfLeft] <= rightArray[indexOfRight]) {
+                array[indexOfMerged++] = leftArray[indexOfLeft++];
+            } else {
+                array[indexOfMerged++] = rightArray[indexOfRight++];
+            }
+        }
+
+        while (indexOfLeft < leftArray.length) {
+            array[indexOfMerged++] = leftArray[indexOfLeft++];
+        }
+
+        while (indexOfRight < rightArray.length) {
+            array[indexOfMerged++] = rightArray[indexOfRight++];
+        }
+    }
+
     //class MergeSort
 //{
 //    // Merges two subarrays of arr[].
@@ -248,8 +289,6 @@ public class AlgorithmManager {
 //        printArray(arr);
 //    }
 //}
-
-
     private void swap(int[] array, int currentIndex, int indexToSwap) {
 
         int temp = array[currentIndex];

@@ -15,13 +15,6 @@ import java.util.Scanner;
 import shape.*;
 import utilities.Debug;
 
-/**
- * Class description:
- *
- * @author Marcel Gallardo (000827700)
- *
- *
- */
 public class FileReader {
 
     /* ENCAPSULATED FIELDS */

@@ -6,90 +6,88 @@ import java.io.ObjectOutputStream;
 
 /**
  *
- * 
+ *
  */
 public class Debug {
-    
-private int debugLevel;
 
-	public Debug(int selectedDebugLevel) {
+    private int debugLevel;
 
-		this.debugLevel = selectedDebugLevel;
+    public Debug(int selectedDebugLevel) {
 
-	}
+        this.debugLevel = selectedDebugLevel;
 
-	// Getter and Setter Methods
-	/**
-	 * @return the current debug level
-	 */
-	public int getLevel() {
-		return this.debugLevel;
-	}
+    }
 
-	/**
-	 * @param debugLevel - the current debug level
-	 */
-	public void setLevel(int selectedDebugLevel) {
+    // Getter and Setter Methods
+    /**
+     * @return the current debug level
+     */
+    public int getLevel() {
+        return this.debugLevel;
+    }
 
-		if (selectedDebugLevel > 0) {
+    /**
+     * @param debugLevel - the current debug level
+     */
+    public void setLevel(int selectedDebugLevel) {
 
-			this.debugLevel = selectedDebugLevel;
-		}
+        if (selectedDebugLevel > 0) {
 
-	}
+            this.debugLevel = selectedDebugLevel;
+        }
 
-	// Operational Methods
-	/**
-	 * @param msg - the debug output message
-	 */
-	public void output(int selectedDebugLevel, String msg) {
+    }
 
-		if (selectedDebugLevel <= this.debugLevel) {
+    // Operational Methods
+    /**
+     * @param msg - the debug output message
+     */
+    public void output(int selectedDebugLevel, String msg) {
 
-			System.out.println(msg); // message to be displayed
-		}
+        if (selectedDebugLevel <= this.debugLevel) {
 
-		/* Else debug == 0 , do nothing */
+            System.out.println(msg); // message to be displayed
+        }
 
-	}
+        /* Else debug == 0 , do nothing */
+    }
 
-	/**
-	 * 
-	 * @param selectedDebugLevel - entered app level
-	 * @param msg                - msg to display
-	 * @param answer             - yes or no to serialize dbug output to file
-	 */
-	public void output(int selectedDebugLevel, String msg, String answer) {
+    /**
+     *
+     * @param selectedDebugLevel - entered app level
+     * @param msg - msg to display
+     * @param answer - yes or no to serialize dbug output to file
+     */
+    public void output(int selectedDebugLevel, String msg, String answer) {
 
-		int num = 1;
+        int num = 1;
 
-		if (selectedDebugLevel <= this.debugLevel && answer.toUpperCase().equals("YES")) {
+        if (selectedDebugLevel <= this.debugLevel && answer.toUpperCase().equals("YES")) {
 
-			String fileName = "debugResults" + num + "debugLevel" + selectedDebugLevel;
+            String fileName = "debugResults" + num + "debugLevel" + selectedDebugLevel;
 
-			System.out.println(msg); // message to be displayed
+            System.out.println(msg); // message to be displayed
 
-			try {
-				FileOutputStream fos = new FileOutputStream("res/debugOutput/" + fileName);
+            try {
+                FileOutputStream fos = new FileOutputStream("res/debugOutput/" + fileName);
 
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-				oos.writeObject(msg);
+                oos.writeObject(msg);
 
-				// close object first
-				oos.close();
-				// close file
-				fos.close();
+                // close object first
+                oos.close();
+                // close file
+                fos.close();
 
-			} catch (IOException e) {
+            } catch (IOException e) {
 
-				e.printStackTrace();
-			}
-		}
+                e.printStackTrace();
+            }
+        }
 
-		/* Else debug == 0 , do nothing */
-
-		num++;
-	}
+        /* Else debug == 0 , do nothing */
+        num++;
+    }
 
 }
