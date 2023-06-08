@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import shape.*;
+import Shape.*;
 import utilities.Debug;
 
 public class FileReader {

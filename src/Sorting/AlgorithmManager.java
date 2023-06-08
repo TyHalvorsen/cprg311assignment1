@@ -2,7 +2,7 @@ package Sorting;
 
 import Comparator.CompareByBaseArea;
 import Comparator.CompareByVolume;
-
+import Shape.Shape;
 import utilities.Debug;
 
 /**
@@ -10,19 +10,29 @@ import utilities.Debug;
  * bubbleSort, insertionSort, selectionSort, quickSort, one unique sort these
  * algorithms will rely on compateTo(), compareBaseArea, CompareByVolume for
  * logic
+ *
+ * @author Marcel Gallardo (000827700), Lynn Park , Tyler Halvorsen
+ *
  */
 public class AlgorithmManager {
 
-    // use these for algorithms
-//	BaseAreaComparator compareBaseArea = new BaseAreaComparator();
+    private Shape[] inputArray;
+
+//	public AlgorithmManager(Shape[] array) {
+//		this.inputArray = array;
 //
-//	VolumeComparator compareVolume = new VolumeComparator();
-//        
-//        HeightComparator compareHeight = new HeightComparator();
+//	}
+    // use these for algorithms
+    CompareByBaseArea compareBaseArea = new CompareByBaseArea();
+
+    CompareByVolume compareVolume = new CompareByVolume();
+
     /*
-	 * outer loop is for how many times the inner loop will execute
+	 * outer loop is for how many times the inner loop will execute it moves to the
+	 * next element in the array then the inner loop swaps the element we are on to
+	 * all the other elements in the array
      */
-    public void bubbleSort(int[] inputArray, Debug debugLevel) { // time complexity O(n^2)
+    public void bubbleSort(Debug debugLevel) { // works - sorts by shape height
 
         long startTime = System.nanoTime();
 
@@ -38,7 +48,8 @@ public class AlgorithmManager {
                 /* these vars could be the issue */
                 // int currentIndex = inputArray[j]; // index 0
                 // int nextIndex = inputArray[j + 1]; // index 0 + 1
-                if (inputArray[j] > inputArray[j + 1]) {
+                // inputArray[j].compareTo(inputArray[j + 1]) > 1 // smallest to largest
+                if (inputArray[j].compareTo(inputArray[j + 1]) <= -1) { // largest to smallest
 
                     swap(inputArray, j, j += 1);
 
@@ -50,40 +61,71 @@ public class AlgorithmManager {
         }
         debugLevel.output(1, "Finished");
 
+        /* NOT WORKING */
         long endTime = System.nanoTime(); // time ended
         System.out.println("Time Taken In Sorting Method in ms: " + (endTime - startTime) / 1000000);
 
     }
 
-    public void selectionSort(int[] inputArray, Debug debugLevel) {
+    public void selectionSort(Debug debugLevel) { // works - sorts by shape height
 
         long startTime = System.nanoTime();
 
+        // sets the min to be the element in the array at i
         for (int i = 0; i < inputArray.length - 1; i++) {
 
-            int currentMin = i;
-
-            /* loop through the array just serching for the smallest element */
+            // start at fist element
+            // int currentMin = i; // make this element the minimum
+            int currentLargest = i;
+            /*
+			 * loop through the array just serching for the smallest element at index i + 1
+			 * (index 1)
+             */
             for (int j = i + 1; j < inputArray.length; j++) {
 
-                int currentElement = inputArray[j];
-
-                // int minCounter = 0;
+                Shape currentElement = inputArray[j]; // element at index 1
 
                 /*
 				 * if the element is smaller than our minimum set the element to be the new
-				 * minimum
+				 * minimum we are looking through the array for the smallest num
                  */
-                if (currentElement < inputArray[currentMin]) {
+                // currentElement.compareTo(inputArray[currentMin]) <= -1 smallest to largest
+                if (currentElement.compareTo(inputArray[currentLargest]) >= 1) {
 
-                    currentMin = j;
+                    currentLargest = j; // set the min to be the smallest element
 
                 }
                 // debugLevel.output(1, "how man min asssigned " + minCounter);
             }
 
-            /* once minimum is found we swap the min with the element in the first index */
-            swap(inputArray, currentMin, i);
+            /*
+			 * once minimum is found we exsit inner loop and swap the min with the element
+			 * in the first index
+             */
+            swap(inputArray, currentLargest, i);
+        }
+
+        /* NOT WORKING */
+        long endTime = System.nanoTime(); // time ended
+        System.out.println("Time Taken In Sorting Method in ms: " + (endTime - startTime) / 1000000);
+
+    }
+
+    public void insertionSort() {
+
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < inputArray.length - 1; i++) {
+
+            // i >= 0 && inputArray[i].compareTo(inputArray[i + 1]) >= 1 smallest to largest
+            while (i >= 0 && inputArray[i].compareTo(inputArray[i + 1]) <= -1) { // move backwards to check the swaped
+                // elements
+
+                swap(inputArray, i + 1, i);
+
+                i = i - 1; // lets us move backwards
+            }
+
         }
 
         long endTime = System.nanoTime(); // time ended
@@ -91,86 +133,75 @@ public class AlgorithmManager {
 
     }
 
-    public void insertionSort(int[] inputArray) {
+    public void quickSort() {
 
-        for (int i = 1; i < inputArray.length; i++) {
-
-            int temp;
-            int left;
-
-            temp = inputArray[i];
-            left = i - 1;
-
-            while (left >= 0 && inputArray[left] > temp) {
-
-                swap(inputArray, temp, left);
-
-                left--;
-
-            }
-
-            inputArray[left + 1] = temp;
-
-        }
-
+        // sorted array can cause isues - make it longer to sort - you will keep picking
+        // the highest num if you do pivot at the end
+        // get pivot - random
+        // compare all number to pivot
+        // iff there less put them in left then biigger go right
+        // repeat for each side - till we get one
+        // get pivot via dividing - usually random
+        // then compare the pivot to all elments in the left and right
+        // if less than pivot put left not including pivot else put right side
+        // repeat - untill we have one
+        // then combine
+        doQuickSort(inputArray, 0, inputArray.length - 1);
     }
 
-    public void quickSort(int[] array, Debug debugLevel) {
-        doQuickSort(array, 0, array.length - 1);
-    }
+    private void doQuickSort(Shape[] array, int low, int high) {
 
-    private void doQuickSort(int[] array, int low, int high) {
         if (low < high) {
             int pivotIndex = partition(array, low, high);
 
-            //left partition
+            // left partition
             doQuickSort(array, low, pivotIndex - 1);
-            //right partition
+            // right partition
             doQuickSort(array, pivotIndex + 1, high);
         }
     }
 
-    private int partition(int[] array, int low, int high) {
-        int pivot = array[high];
+    private int partition(Shape[] array, int low, int high) {
+        Shape pivot = array[high];
         int i = low - 1;
 
         for (int j = low; j < high; j++) {
-            if (array[j] >= pivot) {
+            if (array[j].compareTo(pivot) >= 1) {
                 i++;
                 swap(array, i, j);
             }
         }
 
         swap(array, i + 1, high);
+
         return i + 1;
     }
 
-    public void mergeSort(int[] array, Debug debugLevel) {
+    // divides
+    public void mergeSort(Shape[] array) {
+
         if (array.length <= 1) {
             return; // Array is already sorted
         }
 
         int mid = array.length / 2;
-        int[] left = new int[mid];
-        int[] right = new int[array.length - mid];
+
+        Shape[] leftArray = new Shape[mid];
+        Shape[] rightArray = new Shape[array.length - mid];
 
         // split the array into two
-        System.arraycopy(array, 0, left, 0, left.length);
-        System.arraycopy(array, mid, right, 0, right.length);
+        System.arraycopy(array, 0, leftArray, 0, leftArray.length);
+        System.arraycopy(array, mid, rightArray, 0, rightArray.length);
 
-        //  sort the two arrays
-        mergeSort(left, debugLevel);
-        mergeSort(right, debugLevel);
+        // sort the two arrays
+        mergeSort(leftArray);
+        mergeSort(rightArray);
 
-        // merge two the sorted arrays
-        merge(array, left, right);
-    }
-
-    private static void merge(int[] array, int[] leftArray, int[] rightArray) {
         int indexOfLeft = 0, indexOfRight = 0, indexOfMerged = 0;
 
         while (indexOfLeft < leftArray.length && indexOfRight < rightArray.length) {
-            if (leftArray[indexOfLeft] <= rightArray[indexOfRight]) {
+            // Compare in descending order using compareTo method with reverse logic
+            if (leftArray[indexOfLeft].compareTo(rightArray[indexOfRight]) >= 1) {
                 array[indexOfMerged++] = leftArray[indexOfLeft++];
             } else {
                 array[indexOfMerged++] = rightArray[indexOfRight++];
@@ -186,112 +217,9 @@ public class AlgorithmManager {
         }
     }
 
-    //class MergeSort
-//{
-//    // Merges two subarrays of arr[].
-//    // First subarray is arr[l..m]
-//    // Second subarray is arr[m+1..r]
-//    void merge(int arr[], int l, int m, int r)
-//    {
-//        // Find sizes of two subarrays to be merged
-//        int n1 = m - l + 1;
-//        int n2 = r - m;
-// 
-//        /* Create temp arrays */
-//        int L[] = new int [n1];
-//        int R[] = new int [n2];
-// 
-//        /*Copy data to temp arrays*/
-//        for (int i=0; i<n1; ++i)
-//            L[i] = arr[l + i];
-//        for (int j=0; j<n2; ++j)
-//            R[j] = arr[m + 1+ j];
-// 
-// 
-//        /* Merge the temp arrays */
-// 
-//        // Initial indexes of first and second subarrays
-//        int i = 0, j = 0;
-// 
-//        // Initial index of merged subarray array
-//        int k = l;
-//        while (i < n1 && j < n2)
-//        {
-//            if (L[i] <= R[j])
-//            {
-//                arr[k] = L[i];
-//                i++;
-//            }
-//            else
-//            {
-//                arr[k] = R[j];
-//                j++;
-//            }
-//            k++;
-//        }
-// 
-//        /* Copy remaining elements of L[] if any */
-//        while (i < n1)
-//        {
-//            arr[k] = L[i];
-//            i++;
-//            k++;
-//        }
-// 
-//        /* Copy remaining elements of R[] if any */
-//        while (j < n2)
-//        {
-//            arr[k] = R[j];
-//            j++;
-//            k++;
-//        }
-//    }
-// 
-//    // Main function that sorts arr[l..r] using
-//    // merge()
-//    void sort(int arr[], int l, int r)
-//    {
-//        if (l < r)
-//        {
-//            // Find the middle point
-//            int m = (l+r)/2;
-// 
-//            // Sort first and second halves
-//            sort(arr, l, m);
-//            sort(arr , m+1, r);
-// 
-//            // Merge the sorted halves
-//            merge(arr, l, m, r);
-//        }
-//    }
-// 
-//    /* A utility function to print array of size n */
-//    static void printArray(int arr[])
-//    {
-//        int n = arr.length;
-//        for (int i=0; i<n; ++i)
-//            System.out.print(arr[i] + " ");
-//        System.out.println();
-//    }
-// 
-//    // Driver method
-//    public static void main(String args[])
-//    {
-//        int arr[] = {12, 11, 13, 5, 6, 7};
-// 
-//        System.out.println("Given Array");
-//        printArray(arr);
-// 
-//        MergeSort ob = new MergeSort();
-//        ob.sort(arr, 0, arr.length-1);
-// 
-//        System.out.println("\nSorted array");
-//        printArray(arr);
-//    }
-//}
-    private void swap(int[] array, int currentIndex, int indexToSwap) {
+    private void swap(Shape[] array, int currentIndex, int indexToSwap) {
 
-        int temp = array[currentIndex];
+        Shape temp = array[currentIndex];
 
         array[currentIndex] = array[indexToSwap];
         array[indexToSwap] = temp;

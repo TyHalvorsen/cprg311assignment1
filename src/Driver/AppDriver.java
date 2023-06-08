@@ -8,10 +8,12 @@ import Shape.Pyramid;
 import Shape.Shape;
 import Sorting.AlgorithmManager;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+
 import utilities.Debug;
 
 /**
@@ -118,12 +120,13 @@ public class AppDriver {
 
         Debug debug = new Debug(1);
         AlgorithmManager algorithm = new AlgorithmManager();
-        int unsortedArray[] = {35, 5, 1, 6, 12, 4, 9, 2, 66};
+        int unsortedArray[] = {10,6,5,4,3,2};
 
-        algorithm.mergeSort(unsortedArray, debug);
+        algorithm.mergeSort(shapeArray);
 
-        for (int a : unsortedArray) {
-            System.out.print(a + " ");
+        for (Shape s: shapeArray) {
+            System.out.print(s + " ");
+             System.out.println("  ");
         }
     }
 
