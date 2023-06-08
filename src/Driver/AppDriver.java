@@ -62,8 +62,11 @@ public class AppDriver {
         CompareByVolume volumeComp = new CompareByVolume();
 
         Cone cone = new Cone(28437.601, 17222.616);
+        Cone cone1 = new Cone(328437.601, 317222.616);
         Cylinder cylinder = new Cylinder(12595.147, 650.338);
+        Cylinder cylinder1 = new Cylinder(42595.147, 450.338);
         Pyramid pyramid = new Pyramid(13081.024, 12232.336);
+        Pyramid pyramid1 = new Pyramid(53081.024, 52232.336);
 
         cone.calcBaseArea();
         cone.calcVolume();
@@ -78,6 +81,9 @@ public class AppDriver {
         shapeList.add(cone);
         shapeList.add(cylinder);
         shapeList.add(pyramid);
+        shapeList.add(cone1);
+        shapeList.add(cylinder1);
+        shapeList.add(pyramid1);
 
         System.out.println("cone base area " + cone.getBaseArea());
         System.out.println("cylinder base area " + cylinder.getBaseArea());
@@ -122,8 +128,9 @@ public class AppDriver {
         AlgorithmManager algorithm = new AlgorithmManager();
         int unsortedArray[] = {10,6,5,4,3,2};
 
-        algorithm.mergeSort(shapeArray);
+        algorithm.quickSort(shapeArray);
 
+       
         for (Shape s: shapeArray) {
             System.out.print(s + " ");
              System.out.println("  ");

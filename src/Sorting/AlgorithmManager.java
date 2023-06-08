@@ -3,6 +3,7 @@ package Sorting;
 import Comparator.CompareByBaseArea;
 import Comparator.CompareByVolume;
 import Shape.Shape;
+import java.util.concurrent.ThreadLocalRandom;
 import utilities.Debug;
 
 /**
@@ -51,7 +52,7 @@ public class AlgorithmManager {
                 // inputArray[j].compareTo(inputArray[j + 1]) > 1 // smallest to largest
                 if (inputArray[j].compareTo(inputArray[j + 1]) <= -1) { // largest to smallest
 
-                    swap(inputArray, j, j += 1);
+                   swap(inputArray, j, j += 1);
 
                     debugLevel.output(1, "Swapped");
 
@@ -133,7 +134,7 @@ public class AlgorithmManager {
 
     }
 
-    public void quickSort() {
+    public void quickSort(Shape[] array) {
 
         // sorted array can cause isues - make it longer to sort - you will keep picking
         // the highest num if you do pivot at the end
@@ -146,36 +147,41 @@ public class AlgorithmManager {
         // if less than pivot put left not including pivot else put right side
         // repeat - untill we have one
         // then combine
-        doQuickSort(inputArray, 0, inputArray.length - 1);
+        doQuickSort(array, 0, array.length - 1);
     }
 
-    private void doQuickSort(Shape[] array, int low, int high) {
+    private void doQuickSort(Shape[] array, int left, int right) {
 
-        if (low < high) {
-            int pivotIndex = partition(array, low, high);
-
-            // left partition
-            doQuickSort(array, low, pivotIndex - 1);
-            // right partition
-            doQuickSort(array, pivotIndex + 1, high);
+        if (left >= right) {
+            return;
+        } else {
+            // Choose a random pivot index between left and right
+            int randomPivotIndex = ThreadLocalRandom.current().nextInt(left, right + 1);
+            swap(array, randomPivotIndex, right);
+            int pivotIndex = partition(array, left, right);
+          
         }
     }
 
-    private int partition(Shape[] array, int low, int high) {
-        Shape pivot = array[high];
-        int i = low - 1;
-
-        for (int j = low; j < high; j++) {
-            if (array[j].compareTo(pivot) >= 1) {
+    private int partition(Shape[] array, int left, int right) {
+        Shape pivot = array[right];
+        int i = left - 1;
+//
+        for (int currentIndex = left; currentIndex < right; currentIndex++) {
+            //if array[currentIndex] is bigger than array[right]
+            //then i++ and swap the i and currentIndex
+            if (array[currentIndex].compareTo(pivot) >= 1) {
                 i++;
-                swap(array, i, j);
+                //
+                swap(array, i, currentIndex);
             }
         }
-
-        swap(array, i + 1, high);
-
+        //after loop through array except the currentIndex and far right index(pivot) swap them 
+        swap(array, i + 1, right);
         return i + 1;
     }
+
+    
 
     // divides
     public void mergeSort(Shape[] array) {
@@ -217,7 +223,8 @@ public class AlgorithmManager {
         }
     }
 
-    private void swap(Shape[] array, int currentIndex, int indexToSwap) {
+
+private void swap(Shape[] array, int currentIndex, int indexToSwap) {
 
         Shape temp = array[currentIndex];
 
@@ -225,5 +232,4 @@ public class AlgorithmManager {
         array[indexToSwap] = temp;
 
     }
-
 }
