@@ -118,7 +118,12 @@ public class AppDriver {
 
         Object[] objArray = shapeList.toArray();
         Shape[] shapeArray = Arrays.copyOf(objArray, objArray.length, Shape[].class);
+        
+        
         Arrays.sort(shapeArray);
+        
+        
+        
         System.out.println("******************************************");
         for (int i = 0; i < shapeArray.length; i++) {
             System.out.println("\t" + shapeArray[i].getVolume() + " " + shapeArray[i].getBaseArea());
@@ -126,7 +131,7 @@ public class AppDriver {
 
         Debug debug = new Debug(1);
         AlgorithmManager algorithm = new AlgorithmManager();
-        int unsortedArray[] = {10,6,5,4,3,2};
+        //int unsortedArray[] = {10,6,5,4,3,2};
 
         algorithm.quickSort(shapeArray);
 
